@@ -1,3 +1,16 @@
+#include "llvm/ADT/APFloat.h"
+#include "llvm/ADT/STLExtras.h"
+#include "llvm/IR/BasicBlock.h"
+#include "llvm/IR/Constants.h"
+#include "llvm/IR/DerivedTypes.h"
+#include "llvm/IR/Function.h"
+#include "llvm/IR/IRBuilder.h"
+#include "llvm/IR/LLVMContext.h"
+#include "llvm/IR/Module.h"
+#include "llvm/IR/Type.h"
+#include "llvm/IR/Verifier.h"
+
+#include <algorithm>
 #include <cctype>
 #include <cstddef>
 #include <cstdio>
@@ -94,6 +107,7 @@ namespace {
 class ExprAST {
 public:
   virtual ~ExprAST() = default;
+  virtual Value *codegen() = 0;
 };
 
 // 数字字面值（如123.0）的表达式类
@@ -102,6 +116,7 @@ class NumberExprAST : public ExprAST {
 
 public:
   NumberExprAST(double Val) : Val(Val) {}
+  Value *codegen override;
 };
 
 // 用于表示变量的表达式类
@@ -446,8 +461,6 @@ static void MainLoop() {
     }
   }
 }
-
-
 
 int main() {
   // 声明支持的运算符以及优先级
