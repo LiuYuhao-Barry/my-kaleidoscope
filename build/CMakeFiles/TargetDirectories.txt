@@ -1,2 +1,0 @@
-/home/liuyuhao/projects/my-kaleidoscope/build/CMakeFiles/edit_cache.dir
-/home/liuyuhao/projects/my-kaleidoscope/build/CMakeFiles/rebuild_cache.dir
